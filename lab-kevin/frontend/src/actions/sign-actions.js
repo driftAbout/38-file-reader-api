@@ -16,9 +16,7 @@ const tokenDelete = () => {
 const signUpRequest = user => dispatch => {
   return superagent.post(`${__API_URL__}/signup`)
     .send(user)
-    .then(res => dispatch(tokenSet(res.text)))
-    .then(action =>  action.payload);
-
+    .then(res => dispatch(tokenSet(res.text)));
 };
 
 const signInRequest = user => dispatch => {

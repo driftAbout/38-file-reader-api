@@ -1,7 +1,12 @@
 import React from 'react';
 import {Settings} from '../settings';
+import {connect} from 'react-redux';
 
-export default class Dashboard extends React.Component{
+class Dashboard extends React.Component{
+
+  // componentWillReceiveProps(nextProps){
+  //   this.props.createProfileRequest(nextProps.token);
+  // }
 
   render(){
     return (
@@ -15,3 +20,13 @@ export default class Dashboard extends React.Component{
 
 
 } 
+
+const mapStateToProps = state => ({
+  profile: state.profile,
+});
+
+// mapDispatchToProps = dispatch => ({
+//   createProfileRequest: token => dispatch(createProfileRequest(token))
+// })
+
+export default connect(mapStateToProps, null)(Dashboard);

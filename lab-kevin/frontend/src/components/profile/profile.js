@@ -1,6 +1,17 @@
 import './_profile.scss';
 import React from 'react';
 
+
+const fileToDataURL = file => {
+  return new Promise((resolve,reject) => {
+    if(!file) return reject(new Error('File is required'));
+    let file_reader = new FileReader();
+    file_reader.addEventListener('load', () => resolve(file_reader.result));
+    file_reader.addEventListener('error', reject);
+    return file_reader.readAsDataURL(file);
+  });
+};
+
 export default class Profile extends React.Component{
   constructor(props){
     super(props);
@@ -9,6 +20,7 @@ export default class Profile extends React.Component{
       email: '',
       bio: '',
       avatar: '',
+      file: null,
       edit_settings: false,
       edit_profile: false,
     };
@@ -30,26 +42,56 @@ export default class Profile extends React.Component{
   }
 
   handleChange(e){
-    this.setState({[e.target.name]: e.target.value});
+    if(e.target.type!== 'file') return this.setState({[e.target.name]: e.target.value});
+    
+    fileToDataURL(e.target.files[0])
+      .then(avatar_preview => this.setState({avatar_preview}))
+      .catch(console.error);
+    this.setState({file: e.target.files[0]});
   }
+    
 
   handleSubmit(e){
     e.preventDefault();
-    this.props.onComplete[e.target.name](this.state);
+    return this.props.onComplete[e.target.name](this.state)
+      .then(action => {
+        let {bio, avatar} = action.payload;
+        this.setState({ edit_settings: false, edit_profile: false, avatar_preview: false, bio: bio, avatar: avatar});
+      });
   }
 
   render(){
     return (
       <div>
+
         <form name="profile" className={`user-profile-form${this.state.edit_profile ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-          <button  onClick={this.handleImgClick}>{this.state.avatar ? <img name="avatar" src={this.state.avatar} /> : <span>Upload Image</span>}</button>
-          <textarea name='bio' value={this.state.bio}>
+          {/*<button  onClick={this.handleImgClick}>}*/}{
+            this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview } /> : 
+              <input type='file' 
+                name='avatar'
+                onChange={this.handleChange}
+              />}
+          {/*</button>*/}
+          <textarea name="bio" value={this.state.bio} onChange={this.handleChange}> 
           </textarea>
-          { this.state.edit_profile ? <span><button type="submit" >submit</button><button data-edit="edit_profile" onClick={this.toggleEdit}>cancel</button></span> : <span  data-edit="edit_profile"onClick={this.toggleEdit}>edit</span>}
+          { this.state.edit_profile ? 
+            <span><button type="submit" >submit</button>
+              <button data-edit="edit_profile" onClick={this.toggleEdit}>cancel</button>
+            </span> : 
+            <span data-edit="edit_profile"onClick={this.toggleEdit}>edit</span>}
         </form>
+
         <form name="settings" className={`user-settings-form${this.state.edit_settings ? ' edit' : ''}`}>
-          <input name="username" type="type" value={this.state.username} /> 
-          <input name="email" type="email" value={this.state.email} /> 
+          <input name="username" 
+            type="type" 
+            onChange={this.handleChange} 
+            value={this.state.username} /> 
+
+          <input name="email" 
+            type="email" 
+            onChange={this.handleChange}
+            value={this.state.email} /> 
+        
           { this.state.edit_settings ? <span><button type="submit">submit</button><button data-edit="edit_settings" onClick={this.toggleEdit}>cancel</button></span> : <span data-edit="edit_settings" onClick={this.toggleEdit}>edit</span>}
         </form>
       </div>

@@ -37,13 +37,15 @@ export default class SignForm extends React.Component{
   handleSubmit(e){
     e.preventDefault();
     let {username, email, password} = this.state;
-    this.props.onComplete({username, email, password})
-      .then(token => {
+    this.props.onComplete.login({username, email, password})
+      .then(action => {
+        let token = action.payload; 
         Object.keys(this.state).forEach(prop => this.setState({[prop]: ''}));
         if(!token) return;
-        localStorage.token = token.toString();
-        return this.setState({token: true}); 
+        localStorage.token = token;
+        return this.props.onComplete.getProfile(token);
       })
+      .then(() => this.setState({token: true}))
       .catch(err => this.setState({err}));
   }
 

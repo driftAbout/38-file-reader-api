@@ -7,7 +7,7 @@
   }
 }*/
  .user-settings-form, .user-profile-form{
-  input, textarea {
+  input, textarea, button{
     pointer-events: none;
     outline: none;
     border: 1px inset transparent;
@@ -17,10 +17,17 @@
 
 
 .user-settings-form.edit, .user-profile-form.edit{
-  input, textarea {
+  input, textarea, button{
     pointer-events: all;
     outline: none;
     border: 1px inset grey;
     background-color: #FFF;
+  }
+}
+
+
+.user-profile-form {
+  .avatar-image {
+    width: 20em;
   }
 }
