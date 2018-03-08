@@ -1,0 +1,26 @@
+/*.user-profile-form.edit, .user-settings-form.edit{
+  input[type="text"] {
+    pointer-events: none;
+    outline: none;
+    border: none;
+    background-color: none;
+  }
+}*/
+ .user-settings-form, .user-profile-form{
+  input, textarea {
+    pointer-events: none;
+    outline: none;
+    border: 1px inset transparent;
+    background-color: none;
+  }
+}
+
+
+.user-settings-form.edit, .user-profile-form.edit{
+  input, textarea {
+    pointer-events: all;
+    outline: none;
+    border: 1px inset grey;
+    background-color: #FFF;
+  }
+}
