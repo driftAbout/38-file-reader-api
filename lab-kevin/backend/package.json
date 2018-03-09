@@ -5,6 +5,9 @@
   "repository": "git@github.com:slugbyte/sluggram.git",
   "author": "Duncan Marsh <dwolfm@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "9.3.0"
+  },
   "jest": {
     "verbose": true,
     "testEnvironment": "node",
@@ -24,15 +27,15 @@
     }
   },
   "scripts": {
-    "start-db": "mkdir -p ./data/db && mongod --dbpath ./data/db",
-    "stop-db": "killall mongod",
     "start": "node index.js",
     "start:watch": "nodemon index.js",
     "start:debug": "DEBUG=http* nodemon index.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watchAll",
     "lint": "eslint .",
-    "lint:test": "npm run lint && npm test"
+    "lint:test": "npm run lint && npm test",
+    "dbon": "mkdir -p ./db && mongod --dbpath ./db",
+    "dboff": "killall mongod"
   },
   "devDependencies": {
     "babel-jest": "^22.4.1",
