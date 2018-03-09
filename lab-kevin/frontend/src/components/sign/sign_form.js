@@ -53,7 +53,7 @@ export default class SignForm extends React.Component{
     return (
 
       <React.Fragment>
-        {this.state.token ? <Redirect to='/' /> : undefined}
+        {this.state.token ? <Redirect to='/dashboard' /> : undefined}
     
         <form onSubmit={this.handleSubmit} noValidate>
           <input name="username" 

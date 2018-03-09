@@ -11,7 +11,7 @@ class Dashboard extends React.Component{
   render(){
     return (
       <section className="dashboard-container">
-        <h2>All the World&apos;s a Stage<span>--William Shakespeare</span></h2>
+        <h2>All I&apos;ve got is a photograph<span>--Def Leppard</span></h2>
         <p>Take a picture here, Take a souvenir<span>-—R.E.M.</span></p>
         <Settings />
       </section>

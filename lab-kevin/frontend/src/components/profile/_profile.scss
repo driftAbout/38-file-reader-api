@@ -11,23 +11,80 @@
     pointer-events: none;
     outline: none;
     border: 1px inset transparent;
-    background-color: none;
+    background: transparent;
+  }
+
+  textarea {
+    resize: none;
+    margin: 0 auto;
+    width: 20em;
+    display: block;
+    font-size: 1em;
+    height: 10em;
+    padding: 1em;
+    box-sizing: border-box;
+    margin-top: .5em;
+  }
+
+  input[type="file"][name="avatar"] {
+    display: none;
+  }
+
+  input[type="file"][name="avatar"] + label {
+    cursor: pointer;
+  }
+
+  input[type="file"][name="avatar"] + label {
+    pointer-events: none;
+    display:inline-block;
+    padding: .5em 1em;
+    border: 1px  solid grey;
+    border-radius: .2em;
   }
 }
 
-
 .user-settings-form.edit, .user-profile-form.edit{
+  
   input, textarea, button{
     pointer-events: all;
     outline: none;
     border: 1px inset grey;
     background-color: #FFF;
   }
+
+  input[type="file"][name="avatar"] + label { 
+      pointer-events: all;
+      cursor: pointer;
+      padding: .5em 1em;
+      border: 1px  solid;
+      background-color: #eee;
+  }
 }
 
+.profile-form-container {
+  width: 90%;
+  margin: 0 auto;
+}
+.avatar-upload-wrap {
+  width: 20em;
+  height: 20em;
+  margin: 0 auto;
+  overflow:hidden;
+  border: 1px solid;
+  border-radius: .2em;
+
+  span {
+    display: block;
+    text-align: center;
+    margin-top: 8em;
+  }
+
+}
 
 .user-profile-form {
   .avatar-image {
-    width: 20em;
+    height: 20em;
+    display: block;
+    margin: auto;
   }
 }
