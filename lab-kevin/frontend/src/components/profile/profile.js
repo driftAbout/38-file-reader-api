@@ -28,13 +28,19 @@ export default class Profile extends React.Component{
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleSubmit =  this.handleSubmit.bind(this);
-    this.handleImgClick = this.handleImgClick.bind(this)
+    this.handleImgClick = this.handleImgClick.bind(this);
+    this.clearForm = this.clearForm.bind(this);
 
   }
 
   toggleEdit(e){
     let edit_toggle = e.target.getAttribute('data-edit');
     this.setState({[edit_toggle]: !this.state[edit_toggle]});
+  }
+
+  clearForm(e){
+    this.toggleEdit(e);
+    this.setState({ avatar_preview: '', avatar: this.props.profile.avatar, bio: this.props.profile.bio});
   }
 
   handleImgClick(e){
@@ -64,17 +70,6 @@ export default class Profile extends React.Component{
     return (
       <div className='profile-form-container'>
         <form name="profile" className={`user-profile-form${this.state.edit_profile ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-          {/*   <div data-edit="edit_profile" onClick={this.handleImgClick} className="avatar-upload-wrap" >
-            {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview } /> : 
-              <span>
-                <input type='file' 
-                  name='avatar'
-                  id="avatar-upload"
-                  onChange={this.handleChange}/>
-                <label htmlFor="avatar-upload">Upload Image</label>
-              </span>}
-          </div>
-  */}
           <div data-edit="edit_profile" onClick={this.handleImgClick}>
             <input type='file' 
               name='avatar'
@@ -95,8 +90,9 @@ export default class Profile extends React.Component{
           </textarea>
           <div className="button-wrap">
             { this.state.edit_profile ? 
-              <span><button type="submit" >submit</button>
-                <button data-edit="edit_profile" onClick={this.toggleEdit}>cancel</button>
+              <span>
+                <button type="button" data-edit="edit_profile" onClick={this.toggleEdit}>cancel</button>
+                <button type="submit" >submit</button>
               </span> : 
               <span data-edit="edit_profile"onClick={this.toggleEdit}>edit</span>}
           </div>
@@ -116,10 +112,11 @@ export default class Profile extends React.Component{
             value={this.state.email} /> 
 
           <div className="button-wrap">
-            { this.state.edit_settings ? <span>
-              <button type="submit">submit</button>
-              <button data-edit="edit_settings" onClick={this.toggleEdit}>cancel</button>
-            </span> : <span data-edit="edit_settings" onClick={this.toggleEdit}>edit</span>}
+            { this.state.edit_settings ? 
+              <span>
+                <button type="button" data-edit="edit_settings" onClick={this.clearForm}>cancel</button>
+                <button type="submit">submit</button>
+              </span> : <span data-edit="edit_settings" onClick={this.toggleEdit}>edit</span>}
           </div>
         </form>
       </div>
