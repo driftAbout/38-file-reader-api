@@ -1,0 +1,22 @@
+.settings-wrap {
+  width:100%;
+  max-width: 440px;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  background-color: #eee;
+  margin-top: 7em;
+  transition: 350ms;
+}
+
+.settings-wrap.closed {
+  width: 0;
+  overflow: hidden;
+  transition: 350ms;
+}
+
+.settings-toggle {
+  position: fixed;
+  left: 1em;
+  margin-top: 1em;
+}
