@@ -64,7 +64,7 @@ export default class Profile extends React.Component{
     return (
       <div className='profile-form-container'>
         <form name="profile" className={`user-profile-form${this.state.edit_profile ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-          <div data-edit="edit_profile" onClick={this.handleImgClick} className="avatar-upload-wrap" >
+          {/*   <div data-edit="edit_profile" onClick={this.handleImgClick} className="avatar-upload-wrap" >
             {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview } /> : 
               <span>
                 <input type='file' 
@@ -74,6 +74,20 @@ export default class Profile extends React.Component{
                 <label htmlFor="avatar-upload">Upload Image</label>
               </span>}
           </div>
+  */}
+          <div data-edit="edit_profile" onClick={this.handleImgClick}>
+            <input type='file' 
+              name='avatar'
+              id="avatar-upload"
+              onChange={this.handleChange}/>
+            <label htmlFor="avatar-upload"  >
+              <div className="avatar-upload-wrap" >
+                {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview} /> : undefined}
+                <span>Upload Image</span> 
+              </div>
+            </label>
+          </div>
+        
           <textarea data-edit="edit_profile" name="bio" value={this.state.bio}
             onDoubleClick={this.toggleEdit}
             placeholder='Tell me something about yourself' 
