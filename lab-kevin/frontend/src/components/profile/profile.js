@@ -1,7 +1,6 @@
 import './_profile.scss';
 import React from 'react';
 
-
 const fileToDataURL = file => {
   return new Promise((resolve,reject) => {
     if(!file) return reject(new Error('File is required'));
@@ -29,6 +28,7 @@ export default class Profile extends React.Component{
     this.handleChange = this.handleChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.handleSubmit =  this.handleSubmit.bind(this);
+    this.handleImgClick = this.handleImgClick.bind(this)
 
   }
 
@@ -38,7 +38,7 @@ export default class Profile extends React.Component{
   }
 
   handleImgClick(e){
-    console.log(e);
+    this.toggleEdit(e);
   }
 
   handleChange(e){
@@ -64,7 +64,7 @@ export default class Profile extends React.Component{
     return (
       <div className='profile-form-container'>
         <form name="profile" className={`user-profile-form${this.state.edit_profile ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-          <div className="avatar-upload-wrap">
+          {/*   <div data-edit="edit_profile" onClick={this.handleImgClick} className="avatar-upload-wrap" >
             {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview } /> : 
               <span>
                 <input type='file' 
@@ -74,27 +74,53 @@ export default class Profile extends React.Component{
                 <label htmlFor="avatar-upload">Upload Image</label>
               </span>}
           </div>
-          <textarea name="bio" value={this.state.bio} onChange={this.handleChange}> 
+  */}
+          <div data-edit="edit_profile" onClick={this.handleImgClick}>
+            <input type='file' 
+              name='avatar'
+              id="avatar-upload"
+              onChange={this.handleChange}/>
+            <label htmlFor="avatar-upload"  >
+              <div className="avatar-upload-wrap" >
+                {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview} /> : undefined}
+                <span>Upload Image</span> 
+              </div>
+            </label>
+          </div>
+        
+          <textarea data-edit="edit_profile" name="bio" value={this.state.bio}
+            onDoubleClick={this.toggleEdit}
+            placeholder='Tell me something about yourself' 
+            onChange={this.handleChange}> 
           </textarea>
-          { this.state.edit_profile ? 
-            <span><button type="submit" >submit</button>
-              <button data-edit="edit_profile" onClick={this.toggleEdit}>cancel</button>
-            </span> : 
-            <span data-edit="edit_profile"onClick={this.toggleEdit}>edit</span>}
+          <div className="button-wrap">
+            { this.state.edit_profile ? 
+              <span><button type="submit" >submit</button>
+                <button data-edit="edit_profile" onClick={this.toggleEdit}>cancel</button>
+              </span> : 
+              <span data-edit="edit_profile"onClick={this.toggleEdit}>edit</span>}
+          </div>
         </form>
 
         <form name="settings" className={`user-settings-form${this.state.edit_settings ? ' edit' : ''}`}>
           <input name="username" 
-            type="type" 
+            type="text" 
+            placeholder="Username"
             onChange={this.handleChange} 
             value={this.state.username} /> 
 
           <input name="email" 
             type="email" 
+            placeholder="Email"
             onChange={this.handleChange}
             value={this.state.email} /> 
-        
-          { this.state.edit_settings ? <span><button type="submit">submit</button><button data-edit="edit_settings" onClick={this.toggleEdit}>cancel</button></span> : <span data-edit="edit_settings" onClick={this.toggleEdit}>edit</span>}
+
+          <div className="button-wrap">
+            { this.state.edit_settings ? <span>
+              <button type="submit">submit</button>
+              <button data-edit="edit_settings" onClick={this.toggleEdit}>cancel</button>
+            </span> : <span data-edit="edit_settings" onClick={this.toggleEdit}>edit</span>}
+          </div>
         </form>
       </div>
     );
