@@ -62,16 +62,18 @@ export default class Profile extends React.Component{
 
   render(){
     return (
-      <div>
-
+      <div className='profile-form-container'>
         <form name="profile" className={`user-profile-form${this.state.edit_profile ? ' edit' : ''}`} onSubmit={this.handleSubmit}>
-          {/*<button  onClick={this.handleImgClick}>}*/}{
-            this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview } /> : 
-              <input type='file' 
-                name='avatar'
-                onChange={this.handleChange}
-              />}
-          {/*</button>*/}
+          <div className="avatar-upload-wrap">
+            {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview } /> : 
+              <span>
+                <input type='file' 
+                  name='avatar'
+                  id="avatar-upload"
+                  onChange={this.handleChange}/>
+                <label htmlFor="avatar-upload">Upload Image</label>
+              </span>}
+          </div>
           <textarea name="bio" value={this.state.bio} onChange={this.handleChange}> 
           </textarea>
           { this.state.edit_profile ? 

@@ -6,8 +6,9 @@ export default class Nav extends React.Component{
     return (
       <nav className="main-nav">
         <ul className="nav-list">
-          <li className="nav-list-item"><Link to="/">Home</Link></li>
+          <li className="nav-list-item"><Link to="/dashboard">Home</Link></li>
           <li className="nav-list-item"><Link to="/landing/signin">Sign in</Link></li>
+          <li className="nav-list-item"><Link to="/landing/signup">Sign up</Link></li>
         </ul>
       </nav>
     );

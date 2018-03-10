@@ -23,7 +23,7 @@ class Landing extends React.Component{
   
     return (
       <section className="landing-container">
-        <h2>All I&apos;ve got is a photograph<span>--Def Leppard</span></h2>
+        <h2>All the World&apos;s a Stage<span>--William Shakespeare</span></h2>
         <SignForm sign={params.sign}
           onComplete={onComplete}
         />
