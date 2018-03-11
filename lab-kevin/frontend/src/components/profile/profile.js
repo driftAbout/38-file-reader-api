@@ -78,7 +78,7 @@ export default class Profile extends React.Component{
             <label htmlFor="avatar-upload"  >
               <div className="avatar-upload-wrap" >
                 {this.state.avatar || this.state.avatar_preview ? <img className="avatar-image" src={this.state.avatar || this.state.avatar_preview} /> : undefined}
-                <span>Upload Image</span> 
+                <span>Upload Profile Image</span> 
               </div>
             </label>
           </div>
