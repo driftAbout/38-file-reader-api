@@ -14,10 +14,7 @@ class Dashboard extends React.Component{
 
     this.toggleSettings = this.toggleSettings.bind(this);
   }
-  // componentWillReceiveProps(nextProps){
-  //   this.props.createProfileRequest(nextProps.token);
-  // }
-
+ 
   toggleSettings(){
     this.setState({isClosed: !this.state.isClosed});
   }
@@ -25,8 +22,7 @@ class Dashboard extends React.Component{
   render(){
     return (
       <section className="dashboard">
-        <h2>All I&apos;ve got is a photograph<span>--Def Leppard</span></h2>
-        <p>Take a picture here, Take a souvenir<span>-—R.E.M.</span></p>
+        <h2>Take A Picture Here, Take A Souvenir<span>--R.E.M.</span></h2>
         <div className={`settings-wrap${this.state.isClosed ? ' closed' : ''}`}>  
           <span className="settings-toggle" onClick={this.toggleSettings}>{this.state.isClosed ? 'Settings' : 'close'}</span>
           <Settings />
@@ -43,9 +39,5 @@ class Dashboard extends React.Component{
 const mapStateToProps = state => ({
   profile: state.profile,
 });
-
-// mapDispatchToProps = dispatch => ({
-//   createProfileRequest: token => dispatch(createProfileRequest(token))
-// })
 
 export default connect(mapStateToProps, null)(Dashboard);

@@ -65,7 +65,7 @@ export default class PhotoUpload extends React.Component{
           <input name="description"
             type="text" 
             value={this.state.description}
-            placeholder='Tell me something about this image' 
+            placeholder='tell me something about this image' 
             onChange={this.handleChange}/> 
           <div className="button-wrap">
             <span>

@@ -27,6 +27,9 @@ export default class App extends React.Component{
         <React.Fragment>
           <Header />
           <main>
+            <Route exact path="/" component={() => 
+              <Redirect to="/dashboard" />
+            }/>
             <Route exact path="/landing/:sign" component={Landing} />
             <Route exact path="/dashboard" component={() => 
               token ?

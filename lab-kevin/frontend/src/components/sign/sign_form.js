@@ -45,6 +45,10 @@ export default class SignForm extends React.Component{
         localStorage.token = token;
         return this.props.onComplete.getProfile(token);
       })
+      .then(() => {
+        if(this.props.sign === 'signin') return this.props.onComplete.getUserPhotos();
+        return;
+      })
       .then(() => this.setState({token: true}))
       .catch(err => this.setState({err}));
   }
