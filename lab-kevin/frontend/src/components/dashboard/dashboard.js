@@ -2,6 +2,7 @@ import './_dashboard.scss';
 import React from 'react';
 import {Settings} from '../settings';
 import {connect} from 'react-redux';
+import {Gallery} from '../gallery';
 
 
 class Dashboard extends React.Component{
@@ -31,6 +32,7 @@ class Dashboard extends React.Component{
           <Settings />
         </div>
         <div className="gallery-wrap" >
+          <Gallery />
         </div>
       </section>
     );

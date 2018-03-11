@@ -1,11 +1,15 @@
+@import '../../style/vars';
+
 .settings-wrap {
   width:100%;
   max-width: 440px;
   position: fixed;
   top: 0;
+  left: 0;
   height: 100%;
   background-color: #eee;
   margin-top: 7em;
+  z-index: 9;
   transition: 350ms;
 }
 
@@ -17,6 +21,14 @@
 
 .settings-toggle {
   position: fixed;
-  left: 1em;
   margin-top: 1em;
+  left: 24em;
+  transition: 250ms;
+  color: #666;
+}
+
+.closed .settings-toggle {
+  left: 1em;
+  transition: 250ms;
+  color: $dark-text;
 }
