@@ -34,7 +34,7 @@ const deletePhotoRequest =  photo => dispatch => {
   let token = localStorage.token;
   return  superagent.delete(`${__API_URL__}/photos/${photo.photo_id}`)
     .set({'Authorization': `Bearer ${token}`})
-    .then(res => dispatch(deletePhoto(photo)))
+    .then(() => dispatch(deletePhoto(photo)))
     .catch(console.error);
 };
   

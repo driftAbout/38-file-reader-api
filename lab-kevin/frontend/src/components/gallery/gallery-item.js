@@ -10,6 +10,7 @@ export default class GalleryItem extends React.Component{
       description: this.props.photo.description || '',
       edit: false,
       showDelete: false,
+      showModal: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -18,10 +19,15 @@ export default class GalleryItem extends React.Component{
     this.handleBlur = this.handleBlur.bind(this);
     this.toggleDelete = this.toggleDelete.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  toggleModal(){
+    this.setState({showModal: !this.state.showModal});
   }
 
   toggleEdit(){
@@ -52,7 +58,9 @@ export default class GalleryItem extends React.Component{
     return (
       <li className="gallery-list-item" >
         <div className="gallery-item-image-wrap">
-          <div className="gallery-item-image-container" onDoubleClick={this.toggleDelete}>
+          <div className="gallery-item-image-container" 
+            onClick={this.toggleModal}
+            onDoubleClick={this.toggleDelete}>
             <img className="gallery-item-image" src={this.props.photo.url} />
           </div>
           <button className={`delete-photo-btn${this.state.showDelete ? ' show-delete' : ''}`} 
@@ -72,6 +80,17 @@ export default class GalleryItem extends React.Component{
             />
             <input type="hidden" name="submit"/>
           </form>
+        </div>
+        <div className={`image-modal${this.state.showModal ? ' show-modal' : ''}`} >
+          <div className="modal-image-container">
+            <span className="modal-image-close"
+              onClick={this.toggleModal}
+            >X</span>
+            <img className="modal-image" src={this.props.photo.url}/>
+            <div className="modal-image-description">
+              <span>{this.state.description}</span>
+            </div>
+          </div>
         </div>
       </li>
     );

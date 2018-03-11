@@ -54,6 +54,10 @@
     margin: 0 auto;
     width: 100%;
     margin-bottom: 1em;
+
+    &:active{
+      opacity: .9;
+    }
   }
 
   .photo-image {

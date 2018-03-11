@@ -104,6 +104,10 @@
       pointer-events: all;
       cursor: pointer;
       margin-bottom: 1em;
+      
+      &:active{
+        opacity: .9;
+      }
   }
 }
 
