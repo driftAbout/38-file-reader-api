@@ -1,115 +1,275 @@
-import categoryReducer from '../reducers/category.js';
+import photoReducer from '../reducers/photo-reducer';
 
-
-describe('Category Reducer Test', function(){
+describe('Profile Reducer Test', function(){
  
-  describe('CATEGORY_CREATE Test', () => {
+  describe('PROFILE_SET Test', () => {
 
     beforeAll(() => {
 
-      this.timeStamp = new Date().toDateString();
+      this.payload = 
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+          description: 'crows',
+          __v:0,
+        };
+    
+
       this.action = {
-        type: 'CATEGORY_CREATE',
-        payload:  {
-          id: 39,
-          timeStamp: this.timeStamp,
-          name: 'Evil Robots',
-          amount: 29.99,
-        },
+        type: 'PHOTO_CREATE',
+        payload: this.payload , 
       };
       
-      this.createState = categoryReducer([], this.action);
-      this.category = this.createState[0];
+      this.createPhoto = photoReducer([], this.action);
     });
     
-    it('Should create a category and return a state object with an array of categories', () => {
-      expect(this.createState).toBeInstanceOf(Array);
-      expect(this.createState.length).toEqual(1);
+    it('Should set the state to the profile sent', () => {
+      expect(this.createPhoto).toBeInstanceOf(Array);
+      expect(this.createPhoto).not.toBeNull();
     });
 
-    it('Should contain an category object with the data that was sent', () => {
-      expect(this.category.id).toEqual(39);
-      expect(this.category.name).toEqual('Evil Robots');
-      expect(this.category.amount).toEqual(29.99);
-      expect(this.category.timeStamp).toEqual(this.timeStamp);
+    it('Should contain an array with an object the data that was sent', () => {
+      expect(this.createPhoto[0]._id).toEqual('5aa5c976d52f8f0f24ae54af');
     });
   });
 
-  describe('CATEGORY_UPDATE Test', () => {
+  describe('PHOTO_DELETE Test', () => {
 
-    beforeAll(() => {
-
-      this.timeStamp = new Date().toDateString();
-      this.action = {
-        type: 'CATEGORY_UPDATE',
-        payload:  {
-          id: 39,
-          timeStamp: this.timeStamp,
-          name: 'Evil Robots',
-          amount: 199.99,
+    this.payload = [
+      {
+        comments:[], 
+        _id: '5aa5c976d52f8f0f24ae54af',
+        owner: '5aa5a327d52f8f0f24ae54ad',
+        profile:{
+          _id: '5aa5a327d52f8f0f24ae54ae',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          username: 'kevin',
+          email: 'kevin@',
+          bio: 'me',
+          __v: 0,
+          avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
         },
-      };
-   
-      this.updateState = categoryReducer(this.createState, this.action);
-      this.category = this.updateState[0];
-    });
-    
-    it('Should update a category and return a state object with an array of categories', () => {
-      expect(this.updateState).toBeInstanceOf(Array);
-      expect(this.updateState.length).toEqual(1);
-    });
+        url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+        description: 'crows',
+        __v:0,
+      },
+    ];
 
-    it('Should contain an category object with the modified data that was sent', () => {
-      expect(this.category.id).toEqual(39);
-      expect(this.category.name).toEqual('Evil Robots');
-      expect(this.category.amount).toEqual(199.99);
-      expect(this.category.timeStamp).toEqual(this.timeStamp);
+    beforeAll(() => {
+      this.action = {
+        type: 'PHOTO_DELETE',
+        payload: this.payload,
+      };
+      this.deletePhoto = photoReducer(this.payload, this.action);
+    });
+  
+    it('Should return an empty state array', () => {
+      expect(this.deletePhoto.length).toEqual(0);
     });
   });
 
-  describe('CATEGORY_DELETE Test', () => {
-
+  describe('PHOTO_UPDATE Test', () => {
     beforeAll(() => {
+      this.payload = [
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+          description: 'crows',
+          __v:0,
+        },
+      ];
 
-      this.timeStamp = new Date().toDateString();
+      this.payload_update = 
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+          description: 'Pure Imagination',
+          __v:0,
+        };
+
       this.action = {
-        type: 'CATEGORY_DELETE',
-        payload: 39,
+        type: 'PHOTO_UPDATE',
+        payload: this.payload_update,
       };
-
-      this.action_none = {
-        type: 'CATEGORY_DELETE',
-        payload: 79,
-      };
-   
-      this.deleteState = categoryReducer(this.updateState, this.action);
-      this.deleteStateNone = categoryReducer(this.updateState, this.action_none);
+      this.photoUpdate = photoReducer(this.payload, this.action);
     });
-    
-    it('Should delete a category and return a state object without the object', () => {
-      expect(this.deleteState).toBeInstanceOf(Array);
-      expect(this.deleteState.length).toEqual(0);
-    });
-
-    it('Should not delete a category that does not exist', () => {
-      expect(this.deleteStateNone).toBeInstanceOf(Array);
-      expect(this.deleteStateNone.length).toEqual(1);
+  
+    it('Should return an array with an updated description', () => {
+      expect(this.photoUpdate[0].description).toEqual('Pure Imagination');
     });
   });
 
-  describe('CATEGORY_RESET Test', () => {
+  describe('PHOTOS_SET Test', () => {
+    beforeAll(() => {
+      this.photosState = [
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+          description: 'crows',
+          __v:0,
+        },
+      ];
+
+      this.payload = 
+      [
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+          description: 'Pure Imagination',
+          __v:0,
+        },
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg',
+          description: 'Pure Imagination',
+          __v:0,
+        },
+      ];
+
+      this.action = {
+        type: 'PHOTOS_SET',
+        payload: this.payload,
+      };
+      this.photosSet = photoReducer(this.photosState, this.action);
+    });
+  
+    it('Should return an array a length of three', () => {
+      expect(this.photosSet.length).toEqual(3);
+    });
+  });
+
+
+  describe('RESET_STATE Test', () => {
+
+    this.payload = [
+      {
+        comments:[], 
+        _id: '5aa5c976d52f8f0f24ae54af',
+        owner: '5aa5a327d52f8f0f24ae54ad',
+        profile:{
+          _id: '5aa5a327d52f8f0f24ae54ae',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          username: 'kevin',
+          email: 'kevin@',
+          bio: 'me',
+          __v: 0,
+          avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+        },
+        url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg,description:crows',__v:0,
+      },
+    ];
 
     beforeAll(() => {
-      this.timeStamp = new Date().toDateString();
       this.action = {
-        type: 'CATEGORY_RESET',
+        type: 'RESET_STATE',
       };
-      this.resetState = categoryReducer(this.updateState, this.action);
+      this.resetState = photoReducer(this.payload, this.action);
+    });
+  
+    it('Should return an empty state array', () => {
+      expect(this.resetState.length).toEqual(0);
+    });
+  });
+
+  describe('SET_STATE Test', () => {
+
+    beforeAll(() => {
+
+      this.payload = [
+        {
+          comments:[], 
+          _id: '5aa5c976d52f8f0f24ae54af',
+          owner: '5aa5a327d52f8f0f24ae54ad',
+          profile:{
+            _id: '5aa5a327d52f8f0f24ae54ae',
+            owner: '5aa5a327d52f8f0f24ae54ad',
+            username: 'kevin',
+            email: 'kevin@',
+            bio: 'me',
+            __v: 0,
+            avatar: 'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+          },
+          url: 'https://401d21-38.s3.us-west-2.amazonaws.com/a8856020b5846d176c43784dbcf75e4f.crow_sky2.jpg,description:crows',__v:0,
+        },
+      ];
+
+      this.action = {
+        type: 'SET_STATE',
+        payload: {photos: this.payload},
+      };
+
+      this.setState = photoReducer([], this.action);
     });
     
-    it('Should reset state to an empty array', () => {
-      expect(this.deleteState).toBeInstanceOf(Array);
-      expect(this.deleteState.length).toEqual(0);
+    it('Should return a state object with the values sent', () => {
+      expect(this.setState).toBeInstanceOf(Array);
+      expect(this.setState[0]._id).toEqual('5aa5c976d52f8f0f24ae54af');
     });
   });
 

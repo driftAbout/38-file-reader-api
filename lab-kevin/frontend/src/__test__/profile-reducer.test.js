@@ -1,184 +1,89 @@
-import expenseReducer from '../reducers/expense.js';
+import profileReducer from '../reducers/profile-reducer';
 
-
-describe('Expense Reducer Test', function(){
+describe('Profile Reducer Test', function(){
  
-  describe('CATEGORY_CREATE Test', () => {
+  describe('PROFILE_SET Test', () => {
 
     beforeAll(() => {
 
-      this.timeStamp = new Date().toDateString();
+      this.payload = {
+        _id: '5aa5a327d52f8f0f24ae54ae',
+        owner: '5aa5a327d52f8f0f24ae54ad',
+        username: 'kevin',
+        email: 'kevin@yomamma.com',
+        bio: 'me',
+        __v :0,
+        avatar:  'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+      };
+
       this.action = {
-        type: 'CATEGORY_CREATE',
-        payload:  {
-          id: 401,
-          timeStamp: this.timeStamp,
-          name: 'Code Fellows Survival Supplies',
-          amount: 43.58,
-        },
+        type: 'PROFILE_SET',
+        payload: this.payload , 
       };
       
-      this.createCatState = expenseReducer({}, this.action);
+      this.setProfile = profileReducer({}, this.action);
     });
     
-    it('Should create a property name with the category id with an array as the value in the state object', () => {
-      expect(this.createCatState).toBeInstanceOf(Object);
-      expect(this.createCatState.hasOwnProperty('401')).toBe(true);
-      expect(this.createCatState['401'].length).toEqual(0);
+    it('Should set the state to the profile sent', () => {
+      expect(this.setProfile).toBeInstanceOf(Object);
+      expect(this.setProfile).not.toBeNull();
+    });
+
+    it('Should contain profile object with the data that was sent', () => {
+      console.log('this.setProfile', this.setProfile);
+      expect(this.setProfile._id).toEqual('5aa5a327d52f8f0f24ae54ae');
     });
   });
 
-  describe('EXPENSE_CREATE TEST', () => {
+  describe('RESET_STATE Test', () => {
+
+    this.payload = {
+      _id: '5aa5a327d52f8f0f24ae54ae',
+      owner: '5aa5a327d52f8f0f24ae54ad',
+      username: 'kevin',
+      email: 'kevin@yomamma.com',
+      bio: 'me',
+      __v :0,
+      avatar:  'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
+    };
 
     beforeAll(() => {
-
-      this.timeStamp = new Date().toDateString();
       this.action = {
-        type: 'EXPENSE_CREATE',
-        payload:  {
-          category_id: 401,
-          id: 17,
-          timeStamp: this.timeStamp,
-          name: 'crying cap',
-          amount: 3.49,
-        },
+        type: 'RESET_SET',
       };
-      
-      this.createExpenseState = expenseReducer(this.createCatState, this.action);
-      this.expense = this.createExpenseState['401'][0];
+      this.resetState = profileReducer(this.payload, this.action);
     });
-    
-    it('Should add an expense object to the category array in the state object', () => {
-      expect(this.createExpenseState).toBeInstanceOf(Object);
-      expect(this.createExpenseState['401'].length).toEqual(1);
-    });
-
-    it('Should contain an expense object with the data that was sent', () => {
-      expect(this.expense.id).toEqual(17);
-      expect(this.expense.category_id).toEqual(401);
-      expect(this.expense.name).toEqual('crying cap');
-      expect(this.expense.amount).toEqual(3.49);
-      expect(this.expense.timeStamp).toEqual(this.timeStamp);
-    });
-
   
-  });
-
-  describe('CATEGORY_UPDATE Test', () => {
-
-    beforeAll(() => {
-      this.timeStamp = new Date().toDateString();
-      this.action = {
-        type: 'EXPENSE_UPDATE',
-        payload:  {
-          category_id: 401,
-          id: 17,
-          timeStamp: this.timeStamp,
-          name: 'crying cap',
-          amount: 13.27,
-        },
-      };
-      this.updateExpenseState = expenseReducer(this.createExpenseState, this.action);
-      this.expense = this.updateExpenseState['401'][0];
-    });
-    
-    it('Should update an expense and return a state object with an array of expenses for each category id', () => {
-      expect(this.updateExpenseState).toBeInstanceOf(Object);
-      expect(this.updateExpenseState['401'].length).toEqual(1);
-    });
-
-    it('Should contain an category object with the modified data that was sent', () => {
-      expect(this.expense.id).toEqual(17);
-      expect(this.expense.category_id).toEqual(401);
-      expect(this.expense.name).toEqual('crying cap');
-      expect(this.expense.amount).toEqual(13.27);
-      expect(this.expense.timeStamp).toEqual(this.timeStamp);
+    it('Should return an empty state object', () => {
+      expect(this.resetState).toBeNull;
     });
   });
 
-  describe('EXPENSE_DELETE Test', () => {
-
-    beforeAll(() => {
-      this.timeStamp = new Date().toDateString();
-      this.action = {
-        type: 'EXPENSE_DELETE',
-        payload:  {
-          category_id: 401,
-          id: 17,
-          timeStamp: this.timeStamp,
-          name: 'crying cap',
-          amount: 13.27,
-        },
-      };
-
-      this.action_none = {
-        type: 'EXPENSE_DELETE',
-        payload:  {
-          category_id: 401,
-          id: 23,
-          timeStamp: this.timeStamp,
-          name: 'Pork flavored Ramen noodles, 2 cases',
-          amount: 12.99,
-        },
-      };
-
-      this.deleteExpenseState = expenseReducer(this.updateExpenseState, this.action);
-      this.deleteExpenseStateNone = expenseReducer(this.updateExpenseState, this.action_none);
-    });
-    
-    it('Should delete an  expense and return a state object without the object', () => {
-      expect(this.deleteExpenseState).toBeInstanceOf(Object);
-      expect(this.deleteExpenseState['401'].length).toEqual(0);
-    });
-
-    it('Should not delete an expense that does not exist', () => {
-      expect(this.deleteExpenseState).toBeInstanceOf(Object);
-      expect(this.deleteExpenseStateNone['401'].length).toEqual(1);
-    });
-  });
-
-
-  describe('CATEGORY_DELETE Test', () => {
+  describe('SET_STATE Test', () => {
 
     beforeAll(() => {
 
-      this.action = {
-        type: 'CATEGORY_DELETE',
-        payload: 401,
+      this.payload = {
+        _id: '5aa5a327d52f8f0f24ae54ae',
+        owner: '5aa5a327d52f8f0f24ae54ad',
+        username: 'kevin',
+        email: 'kevin@yomamma.com',
+        bio: 'me',
+        __v :0,
+        avatar:  'https://401d21-38.s3.us-west-2.amazonaws.com/8d7793192c77a8d506049c0783b4d575.Photo%20on%202-4-18%20at%201.46%20PM%20%232.jpg',
       };
 
-      this.action_none = {
-        type: 'CATEGORY_DELETE',
-        payload: 301,
+      this.action = {
+        type: 'SET_STATE',
+        payload: {profile: this.payload},
       };
-   
-      this.deleteCatState = expenseReducer(this.updateExpenseState, this.action);
-      this.deleteCatStateNone = expenseReducer(this.updateExpenseState, this.action_none);
+
+      this.setState = profileReducer({}, this.action);
     });
     
-    it('Should delete a category and return a state object without the expense object', () => {
-      expect(this.deleteCatState).toBeInstanceOf(Object);
-      expect(this.deleteCatState['401']).toBeUndefined();
-    });
-
-    it('Should not delete a category that does not exist', () => {
-      expect(this.deleteCatStateNone).toBeInstanceOf(Object);
-      expect(this.deleteCatStateNone['401'].length).toEqual(1);
-    });
-  });
-
-  describe('EXPENSE_RESET Test', () => {
-
-    beforeAll(() => {
-      this.action = {
-        type: 'EXPENSE_RESET',
-      };
-      this.resetExpenseState = expenseReducer(this.updateExpenseState, this.action);
-    });
-    
-    it('Should reset state to an empty array', () => {
-      expect(this.resetExpenseState).toBeInstanceOf(Object);
-      expect(Object.keys(this.resetExpenseState).length).toEqual(0);
+    it('Should return a state object with the values sent', () => {
+      expect(this.setState).toBeInstanceOf(Object);
+      expect(this.setState._id).toEqual('5aa5a327d52f8f0f24ae54ae');
     });
   });
 
