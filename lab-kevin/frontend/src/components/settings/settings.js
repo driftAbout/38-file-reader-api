@@ -44,7 +44,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   photoUpload: photo => dispatch(photoCreateRequest(photo)),
   onComplete:{
-    settings: user => console.log(user),
     profile: profile => dispatch(updateProfileRequest(profile)),
   },
 });

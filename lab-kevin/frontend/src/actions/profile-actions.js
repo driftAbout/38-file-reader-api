@@ -19,7 +19,6 @@ const createProfileRequest = token => dispatch => {
 const updateProfileRequest = profile => dispatch => {
   let {file, bio, _id} = profile;
   let token = localStorage.token;
-  console.log('token', token);
   return  superagent.put(`${__API_URL__}/profiles/${_id}`)
     .set({'Authorization': `Bearer ${token}`})
     .field('bio', bio)
