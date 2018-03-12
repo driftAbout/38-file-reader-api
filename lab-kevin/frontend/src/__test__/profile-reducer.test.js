@@ -30,7 +30,6 @@ describe('Profile Reducer Test', function(){
     });
 
     it('Should contain profile object with the data that was sent', () => {
-      console.log('this.setProfile', this.setProfile);
       expect(this.setProfile._id).toEqual('5aa5a327d52f8f0f24ae54ae');
     });
   });
