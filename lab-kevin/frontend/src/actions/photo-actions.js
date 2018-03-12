@@ -3,12 +3,7 @@ import superagent from 'superagent';
 const photoCreate = photo => ({type: 'PHOTO_CREATE', payload: photo});
 const updatePhoto = photo => ({type: 'PHOTO_UPDATE', payload: photo});
 const deletePhoto = photo => ({type: 'PHOTO_DELETE', payload: photo});
-
-// const getProfileRequest = token => dispatch => {
-//   return  superagent.get(`${__API_URL__}/profiles/me`)
-//     .set({'Authorization': `Bearer ${token}`})
-//     .then(res => dispatch(profileSet(res.body)));
-// };
+const setUserPhotos = photos => ({type: 'PHOTOS_SET', payload: photos});
 
 const photoCreateRequest = photo => dispatch => {
   let token = localStorage.token;
@@ -38,15 +33,12 @@ const deletePhotoRequest =  photo => dispatch => {
     .catch(console.error);
 };
   
-// const updateProfileRequest = profile => dispatch => {
-//   let {file, bio, _id} = profile;
-//   let token = localStorage.token;
-//   return  superagent.put(`${__API_URL__}/profiles/${_id}`)
-//     .set({'Authorization': `Bearer ${token}`})
-//     .field('bio', bio)
-//     .attach('avatar', file)
-//     .then(res => dispatch(profileSet(res.body)));
-// };
-    
+const getUserPhotosRequest =  () => dispatch => {
+  let token = localStorage.token;
+  return  superagent.get(`${__API_URL__}/photos/me`)
+    .set({'Authorization': `Bearer ${token}`})
+    .then(res => dispatch(setUserPhotos(res.body.data)))
+    .catch(console.error);
+};
 
-export {photoCreate, photoCreateRequest, updatePhoto, updatePhotoRequest, deletePhoto, deletePhotoRequest};
+export {photoCreate, photoCreateRequest, updatePhoto, updatePhotoRequest, deletePhoto, deletePhotoRequest, setUserPhotos, getUserPhotosRequest};

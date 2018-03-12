@@ -82,10 +82,10 @@ export default class GalleryItem extends React.Component{
           </form>
         </div>
         <div className={`image-modal${this.state.showModal ? ' show-modal' : ''}`} >
+          <span className="modal-image-close"
+            onClick={this.toggleModal}
+          >X</span>
           <div className="modal-image-container">
-            <span className="modal-image-close"
-              onClick={this.toggleModal}
-            >X</span>
             <img className="modal-image" src={this.props.photo.url}/>
             <div className="modal-image-description">
               <span>{this.state.description}</span>

@@ -9,6 +9,12 @@ export default (state=[], action) => {
   
   takeAction['PHOTO_DELETE'] = photo => [...state].filter(img => img._id !== photo.photo_id);
 
+  takeAction['PHOTOS_SET'] = photos => [...state, ...photos];
+
+  takeAction['SET_STATE'] = storage => storage.photos;
+
+  takeAction['RESET_STATE'] = () => [];
+
   return takeAction[type] ? takeAction[type](payload) : state;
  
 };

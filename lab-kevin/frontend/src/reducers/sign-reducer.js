@@ -3,8 +3,13 @@ export default (state=null, action) => {
 
   let takeAction = {};
   takeAction['TOKEN_SET'] = () => payload;
+ 
   takeAction['TOKEN_DELETE'] = () => null;
 
-  return takeAction[type] ? takeAction[type]() : state;
+  takeAction['SET_STATE'] = storage => storage.token;
+
+  takeAction['RESET_STATE'] = () => null;
+
+  return takeAction[type] ? takeAction[type](payload) : state;
 
 };
