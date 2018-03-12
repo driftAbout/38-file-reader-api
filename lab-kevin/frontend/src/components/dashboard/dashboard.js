@@ -1,11 +1,10 @@
 import './_dashboard.scss';
 import React from 'react';
 import {Settings} from '../settings';
-import {connect} from 'react-redux';
 import {Gallery} from '../gallery';
 
 
-class Dashboard extends React.Component{
+export default class Dashboard extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -13,6 +12,10 @@ class Dashboard extends React.Component{
     };
 
     this.toggleSettings = this.toggleSettings.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({photos: nextProps.photos});
   }
  
   toggleSettings(){
@@ -36,8 +39,8 @@ class Dashboard extends React.Component{
 
 } 
 
-const mapStateToProps = state => ({
-  profile: state.profile,
-});
+// const mapStateToProps = state => ({
+//   profile: state.profile,
+// });
 
-export default connect(mapStateToProps, null)(Dashboard);
+//export default connect(mapStateToProps, null)(Dashboard);

@@ -1,5 +1,20 @@
 import superagent from 'superagent';
 
+const setStateFromStorage = () => {
+  
+  let storage = {
+    profile: localStorage.profile ? JSON.parse(localStorage.profile) : {},
+    photos: localStorage.photos ? JSON.parse(localStorage.photos) : [],
+    token: localStorage.token ? localStorage.profile : null,
+  };
+console.log('STORAGE', storage);
+  return {
+    type: 'SET_STATE',
+    payload: storage,
+  };
+};
+
+
 const tokenSet = token => {
   return {
     type: 'TOKEN_SET',
@@ -25,4 +40,4 @@ const signInRequest = user => dispatch => {
     .then(res => dispatch(tokenSet(res.text)));
 };
 
-export  {tokenSet, tokenDelete, signInRequest, signUpRequest};
+export  {tokenSet, tokenDelete, signInRequest, signUpRequest, setStateFromStorage};

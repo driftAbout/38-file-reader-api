@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {signInRequest, signUpRequest, createProfileRequest, getProfileRequest, getUserPhotos, getUserPhotosRequest} from '../../actions';
+import {signInRequest, signUpRequest, createProfileRequest, getProfileRequest, getUserPhotosRequest} from '../../actions';
 import {SignForm} from '../sign';
 
 
@@ -31,7 +31,7 @@ class Landing extends React.Component{
   }
 }
 
-const mapStateToProps = () => ({});
+
 const mapDispatchToProps = dispatch => ({
   signin: user => dispatch(signInRequest(user)),
   signup: user => dispatch(signUpRequest(user)),
@@ -40,5 +40,5 @@ const mapDispatchToProps = dispatch => ({
   getUserPhotos: () => dispatch(getUserPhotosRequest()),
 });
 
-export default connect(mapStateToProps , mapDispatchToProps)(Landing);
+export default connect(null, mapDispatchToProps)(Landing);
 

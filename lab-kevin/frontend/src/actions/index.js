@@ -1,6 +1,6 @@
-import {tokenSet, tokenDelete, signInRequest, signUpRequest} from './sign-actions';
+import {tokenSet, tokenDelete, signInRequest, signUpRequest, setStateFromStorage} from './sign-actions';
 import {profileSet, createProfileRequest, getProfileRequest, updateProfileRequest} from './profile-actions';
-import {photoCreate, photoCreateRequest, deletePhoto, deletePhotoRequest, updatePhoto, updatePhotoRequest, getUserPhotos, getUserPhotosRequest} from './photo-actions';
+import {photoCreate, photoCreateRequest, deletePhoto, deletePhotoRequest, updatePhoto, updatePhotoRequest, setUserPhotos, getUserPhotosRequest} from './photo-actions';
 
 export {
   tokenSet,
@@ -17,6 +17,7 @@ export {
   deletePhotoRequest,
   updatePhotoRequest,
   updatePhoto,
-  getUserPhotos, 
+  setUserPhotos, 
   getUserPhotosRequest,
+  setStateFromStorage,
 };

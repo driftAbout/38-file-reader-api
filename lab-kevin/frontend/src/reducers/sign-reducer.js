@@ -1,20 +1,15 @@
 export default (state=null, action) => {
   let {type, payload} = action;
 
-  if (!state && localStorage.token) state = localStorage.token;
-
   let takeAction = {};
-  takeAction['TOKEN_SET'] = () => {
-    localStorage.token = payload;
-    return payload;
-  };
+  takeAction['TOKEN_SET'] = () => payload;
+ 
   takeAction['TOKEN_DELETE'] = () => null;
 
-  takeAction['RESET_STATE'] = () => {
-    delete localStorage.token;
-    return null;
-  };
+  takeAction['SET_STATE'] = storage => storage.token;
 
-  return takeAction[type] ? takeAction[type]() : state;
+  takeAction['RESET_STATE'] = () => null;
+
+  return takeAction[type] ? takeAction[type](payload) : state;
 
 };

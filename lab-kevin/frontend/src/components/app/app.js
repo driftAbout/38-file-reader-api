@@ -4,24 +4,27 @@ import store from '../../lib/store';
 import {Provider} from 'react-redux';
 import {Landing} from '../landing';
 import {Dashboard} from '../dashboard';
-import {tokenSet} from '../../actions';
+import {setStateFromStorage} from '../../actions';
 import {Header} from '../header';
 import {Footer} from '../footer';
+import {saveToLocalStorage} from '../../lib/local-storage'; 
 
+store.subscribe(() => {
+  saveToLocalStorage(store.getState());
+});
 
 export default class App extends React.Component{
   constructor(props){
     super(props);
-
   }
 
-  onComponentDidMount(){
-    if(localStorage.token) store.dispatch(tokenSet(localStorage.token));
+  componentWillMount(){
+    let state = store.getState();
+    if(!state.token && localStorage.token) store.dispatch(setStateFromStorage());
   }
   
   render(){
     let {token} = store.getState();
-    console.log('app token', token);
     return (
       <Provider store={store}>
         <React.Fragment>

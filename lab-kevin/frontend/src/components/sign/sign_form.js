@@ -42,12 +42,11 @@ export default class SignForm extends React.Component{
         let token = action.payload; 
         Object.keys(this.state).forEach(prop => this.setState({[prop]: ''}));
         if(!token) return;
-        localStorage.token = token;
+        // localStorage.token = token;
         return this.props.onComplete.getProfile(token);
       })
       .then(() => {
-        if(this.props.sign === 'signin') return this.props.onComplete.getUserPhotos();
-        return;
+        if(this.props.sign === 'signin') this.props.onComplete.getUserPhotos();
       })
       .then(() => this.setState({token: true}))
       .catch(err => this.setState({err}));
