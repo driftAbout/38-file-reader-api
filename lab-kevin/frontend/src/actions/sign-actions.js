@@ -5,7 +5,7 @@ const setStateFromStorage = () => {
   let storage = {
     profile: localStorage.profile ? JSON.parse(localStorage.profile) : {},
     photos: localStorage.photos ? JSON.parse(localStorage.photos) : [],
-    token: localStorage.token ? localStorage.profile : null,
+    token: localStorage.token ? localStorage.token : null,
   };
 
   return {
