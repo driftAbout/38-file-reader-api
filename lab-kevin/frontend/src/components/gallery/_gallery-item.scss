@@ -8,7 +8,29 @@
 
 .gallery-item-image-wrap {
   position: relative;
-  margin: 1em;
+  margin: 1.5em;
+
+  .toggle-delete-btn {
+    cursor: pointer;
+    position: absolute;
+    right: -1.25em;
+    top: -1.25em;
+    background-color: #7f7160;
+    color: #ffefda;
+    padding: 0.05em 0.3em;
+    border-radius: 50%;
+    font-size: 1em;
+    border: .1em solid;
+    
+    &:hover{
+      opacity: .9;
+    }
+
+    &:active {
+      opacity: 1;
+    }
+
+  }
 
   .delete-photo-btn {
     left: 0;
