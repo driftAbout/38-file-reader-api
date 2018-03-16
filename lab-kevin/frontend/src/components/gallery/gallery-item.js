@@ -58,9 +58,9 @@ export default class GalleryItem extends React.Component{
     return (
       <li className="gallery-list-item" >
         <div className="gallery-item-image-wrap">
+          <span className="toggle-delete-btn" onClick={this.toggleDelete}>x</span>
           <div className="gallery-item-image-container" 
-            onClick={this.toggleModal}
-            onDoubleClick={this.toggleDelete}>
+            onClick={this.toggleModal}>
             <img className="gallery-item-image" src={this.props.photo.url} />
           </div>
           <button className={`delete-photo-btn${this.state.showDelete ? ' show-delete' : ''}`} 
